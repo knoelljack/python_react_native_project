@@ -3,7 +3,6 @@ import { ScrollView } from 'react-native-virtualized-view'
 import React, {useState, useEffect} from 'react'
 import Header from '../components/header/Header'
 import Dashboard from '../components/home/Dashboard'
-import spots from '../data/spots'
 import SubHeader from '../components/header/SubHeader'
 import BottomTab from '../router/BottomTab'
 
