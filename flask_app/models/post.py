@@ -37,6 +37,12 @@ class Post:
         query = "SELECT * FROM posts WHERE id = %(id)s;"
         return connectToMySQL(DB).query_db(query,data)
 
+    #GET ALL POSTS MADE BY USER
+    @classmethod
+    def get_posts_by_user(cls,data):
+        query = "SELECT * FROM posts WHERE user_id = %(user_id)s"
+        return connectToMySQL(DB).query_db(query,data)
+
     #EDIT POST (DO WE WANT THIS?)
     @classmethod
     def edit_post(cls,data):

@@ -1,3 +1,4 @@
+from crypt import methods
 from flask_app import app
 from flask import get_flashed_messages,request,session,jsonify
 from flask_app.models.post import Post
@@ -22,7 +23,7 @@ def create_post():
     return jsonify(post=post)
 
 #DELETE A POST
-@app.route('/delete/<int:id>', methods=['DELETE'])
+@app.route('/delete/post/<int:id>', methods=['DELETE'])
 def delete_post(id):
     post_data = {
         'id' : id
@@ -49,3 +50,18 @@ def show_post(id):
     post = Post.get_post_by_id(id=id)
     print("Fetching post: ", post)
     return jsonify(post=post)
+
+#SHOW ALL POSTS
+@app.route('/posts/all', methods=['GET'])
+def get_posts():
+    posts = Post.get_all_posts()
+    return jsonify(posts=posts)
+
+#GET ALL POSTS BY A CERTAIN USER (IMPLEMENT IN USER MODEL FOR HOME PAGE?)
+@app.route('/posts/user/<int:id>', methods=['GET'])
+def get_posts_for_user(id):
+    posts_data = {
+        'user_id' : id
+    }
+    posts = Post.get_posts_by_user(posts_data)
+    return jsonify(posts=posts)
