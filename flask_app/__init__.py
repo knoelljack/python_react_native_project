@@ -5,5 +5,5 @@ from flask_cors import CORS
 app = Flask(__name__)
 app.secret_key = "shhhhhh"
 bcrypt = Bcrypt(app)
-DB = 'python_react_native'
+DB = 'ding'
 cors = CORS(app, supports_credentials=True)
