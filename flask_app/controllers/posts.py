@@ -47,7 +47,10 @@ def update_post(id):
 #SHOW ONE POST
 @app.route('/posts/<int:id>', methods=['GET'])
 def show_post(id):
-    post = Post.get_post_by_id(id=id)
+    post_data = {
+        'id' : id
+    }
+    post = Post.get_post_by_id(post_data)
     print("Fetching post: ", post)
     return jsonify(post=post)
 
