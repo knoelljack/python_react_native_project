@@ -27,7 +27,7 @@ class Post:
     #CREATE A POST IN DB
     @classmethod
     def create(cls,data):
-        query = "INSERT INTO posts (title,description,image,created_at,updated_at,user_id,vendor_id) VALUES (%(title)s,%(description)s,%(image)s,NOW(),NOW(),%(user_id)s,%(vendor_id)s);"
+        query = "INSERT INTO posts (title,description,image,created_at,updated_at,user_id) VALUES (%(title)s,%(description)s,%(image)s,NOW(),NOW(),%(user_id)s);"
         post_id = connectToMySQL(DB).query_db(query,data)
         return post_id
 

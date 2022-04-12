@@ -18,5 +18,5 @@ def create_post():
         **request.get_json(),
         'user_id' : creator_id
     }
-    post = Post.save(post_data)
+    post = Post.create(post_data)
     return jsonify(post=post)
