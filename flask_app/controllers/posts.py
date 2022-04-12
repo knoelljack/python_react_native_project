@@ -1,8 +1,3 @@
-from crypt import methods
-from email import message
-import json
-from operator import methodcaller
-from pyexpat.errors import messages
 from flask_app import app
 from flask import get_flashed_messages,request,session,jsonify
 from flask_app.models.post import Post
