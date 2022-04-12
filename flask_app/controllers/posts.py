@@ -20,3 +20,32 @@ def create_post():
     }
     post = Post.create(post_data)
     return jsonify(post=post)
+
+#DELETE A POST
+@app.route('/delete/<int:id>', methods=['DELETE'])
+def delete_post(id):
+    post_data = {
+        'id' : id
+    }
+    delete = Post.delete_post(post_data)
+    print('Deleted post: ', delete)
+    return jsonify(id=id)
+
+#EDIT A POST
+@app.route('/edit/post/<int:id>', methods=['PUT'])
+def update_post(id):
+    post_data = {
+        **request.get_json(),
+        'id' : id
+    }
+    print("Updating post with: ", post_data)
+    post = Post.edit_post(post_data)
+    print(post)
+    return jsonify(id=id)
+
+#SHOW ONE POST
+@app.route('/posts/<int:id>', methods=['GET'])
+def show_post(id):
+    post = Post.get_post_by_id(id=id)
+    print("Fetching post: ", post)
+    return jsonify(post=post)
