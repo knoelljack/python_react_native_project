@@ -43,6 +43,12 @@ class Post:
             query = "UPDATE posts SET title = %(title)s, description = %(description)s, image = %(image)s, updated_at = NOW() WHERE id = %(id)s;"
             return connectToMySQL(DB).query_db(query,data)
 
+        #DELETE POST
+        @classmethod
+        def delete_post(cls,data):
+            query = "DELETE FROM posts WHERE id = %(id)s;"
+            return connectToMySQL(DB).query_db(query,data)
+
         #POST VALIDATION
         @staticmethod
         def validate_post(data):
