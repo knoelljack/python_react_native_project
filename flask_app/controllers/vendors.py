@@ -20,6 +20,11 @@ def create_vendor():
     
 
 # READ ROUTE--------------------------------------
+@app.route('/vendors/<int:id>' , methods=['GET'])
+def show_vendor(id):
+    vendor = Vendor.get_one_vendor(id=id)
+    return jsonify(vendor=vendor.__dict__)
+
 @app.route('/api')
 def hello_world():
     list = {'vendors': [
@@ -32,5 +37,24 @@ def hello_world():
     # ]}
     print('hellooooo!!!')
     return list
+
 # UPDATE ROUTE------------------------------------
+@app.route('/update/vendor/<int:id>', methods=['PUT'])
+def update_vendor(id):
+    vendor_data = {
+        **request.get_json(),
+        'id' : id
+    }
+    vendor = Vendor.edit_vendor(vendor_data)
+    print('Edited Vendor: ', vendor)
+    return jsonify(id=id)
+
 # DELETE ROUTE------------------------------------
+@app.route('/delete/vendor/<int:id>', methods=['DELETE'])
+def delete_vendor(id):
+    vendor_data = {
+        'id' : id
+    }
+    deleted_vendor = Vendor.delete_vendor(vendor_data)
+    print('Deleted Vendor: ', deleted_vendor)
+    return jsonify(id=id)

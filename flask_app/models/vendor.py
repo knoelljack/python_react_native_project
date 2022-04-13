@@ -44,6 +44,12 @@ class Vendor:
         query = "UPDATE vendors SET name = %(name)s, location = %(location)s, email = %(email)s, updated_at = NOW() WHERE id = %(id)s;"
         return connectToMySQL(DB).query_db(query,data)
 
+    #DELETE VENDOR
+    @classmethod
+    def delete_vendor(cls,data):
+        query = 'DELETE FROM vendors WHERE id = %(id)s;'
+        return connectToMySQL(DB).query_db(query,data)
+
     #ALTERNATE GET ONE VENDOR
     @classmethod
     def get_one_vendor(cls,**data):

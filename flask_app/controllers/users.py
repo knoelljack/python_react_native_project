@@ -89,7 +89,7 @@ def login():
 
 # DELETE ROUTE
 @app.route('/delete/<int:id>', methods=['DELETE'])
-def delete_user(id):
+def remove_user(id):
     user_data = {
         'id':id
         }
