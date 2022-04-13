@@ -1,5 +1,9 @@
-from flask_app import DB
+from flask_app import DB, bcrypt
 from flask_app.config.mysqlconnection import connectToMySQL
+from flask import flash
+import re
+
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 class Vendor:
     def __init__(self, data) -> None:
@@ -49,3 +53,20 @@ class Vendor:
         results = connectToMySQL(DB).query_db(query,data)
         if results:
             return cls(results[0])
+
+    #VALIDATE VENDOR REGISTRATION
+    @staticmethod
+    def validate_vendor(data):
+        errors = {}
+        if(len(data['name'])) < 2:
+            errors['name'] = 'Name must be at least 2 characters long'
+        if(len(data['location'])) < 2:
+            errors['location'] = 'Location must be at least 2 characters long'
+        if not EMAIL_REGEX.match(data['email']):
+            errors['email'] = 'Email format is invalid'
+        elif Vendor.get_one_vendor(email=data['email']):
+            errors['email'] = 'Email is already in use'
+
+        for field,msg in errors.items():
+            flash(msg,field)
+        return len(errors) == 0

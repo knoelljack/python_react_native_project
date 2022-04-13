@@ -1,8 +1,24 @@
 from flask_app import app
-from flask import render_template, redirect, request, session, flash
-from flask_app.models import vendor
+from flask import get_flashed_messages, jsonify, render_template, redirect, request, session, flash
+from flask_app.models.vendor import Vendor
 
 # CREATE ROUTE------------------------------------
+@app.route('/create/vendor', methods=['POST'])
+def create_vendor():
+    print('Creating a vendor...')
+    vendor_data = request.get_json()
+    if not Vendor.validate_vendor(vendor_data):
+        messages = get_flashed_messages(with_categories='true')
+        errs = {}
+        for category,description in messages:
+            errs[category] = description
+        return jsonify(message = 'There was an error', errs = errs)
+    print(vendor_data)
+    vendor = Vendor.save(vendor_data)
+    session['id'] = vendor
+    return jsonify(vendor = vendor)
+    
+
 # READ ROUTE--------------------------------------
 @app.route('/api')
 def hello_world():
