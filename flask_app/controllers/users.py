@@ -5,6 +5,7 @@ from email import message
 from flask_app import app, bcrypt
 from flask import get_flashed_messages, redirect,request,session,flash, jsonify, json
 from flask_app.models.user import User
+from flask_app.models.post import Post
 
 
 #HOME PAGE/DASHBOARD ROUTE FOR USER
@@ -13,8 +14,10 @@ def home():
     if 'id' not in session:
         return jsonify({"error" : "Unauthorized"})
     user = User.get_one_user(id = session['id'])
+    posts = Post.get_posts_by_user({'user_id' : session['id']})
     print("Hello", user.first_name)
-    return jsonify({"User" : user.__dict__})
+    # return jsonify({"User" : user.__dict__})
+    return jsonify(user = user.__dict__, posts=posts)
 
 
 #SELECTED USER'S PAGE
