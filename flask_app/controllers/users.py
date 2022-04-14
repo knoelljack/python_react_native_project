@@ -61,10 +61,17 @@ def register():
         return jsonify(message = 'There was an error', errs=errs)
     password = user_data['password']
     print(password)
-    user_data = {
-        **request.get_json(),
-        'password' : bcrypt.generate_password_hash(password).decode('utf-8')
-    }
+    if 'image' in user_data:
+        user_data = {
+            **request.get_json(),
+            'password' : bcrypt.generate_password_hash(password).decode('utf-8')
+        }
+    else:
+        user_data = {
+            **request.get_json(),
+            'password' : bcrypt.generate_password_hash(password).decode('utf-8'),
+            'image' : ""
+        }
     print(user_data)
     user = User.save(user_data)
     print(user)

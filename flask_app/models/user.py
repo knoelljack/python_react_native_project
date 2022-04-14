@@ -29,7 +29,7 @@ class User:
     #SAVE A USER IN DB
     @classmethod
     def save(cls,data):
-        query = "INSERT INTO users (first_name,last_name,email,location,password,created_at,updated_at) VALUES (%(first_name)s,%(last_name)s,%(email)s,%(location)s,%(password)s,NOW(),NOW());"
+        query = "INSERT INTO users (first_name,last_name,image,email,location,password,created_at,updated_at) VALUES (%(first_name)s,%(last_name)s,%(image)s,%(email)s,%(location)s,%(password)s,NOW(),NOW());"
         user_id = connectToMySQL(DB).query_db(query,data)
         return user_id
 
@@ -49,7 +49,7 @@ class User:
     #EDIT USER
     @classmethod
     def edit_user(cls,data):
-        query = "UPDATE users SET first_name = %(first_name)s, last_name = %(last_name)s, email = %(email)s, updated_at = NOW() WHERE id = %(id)s;"
+        query = "UPDATE users SET first_name = %(first_name)s, last_name = %(last_name)s, image = %(image)s, email = %(email)s, updated_at = NOW() WHERE id = %(id)s;"
         return connectToMySQL(DB).query_db(query,data)
 
     #ALTERNATE GET ONE USER
